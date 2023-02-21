@@ -49,6 +49,28 @@ const getUserList = async () => {
   // } catch (error) {
   //   console.log('check error', error);
   // }
+
+  let newUser = await db.User.findOne({
+    where: { id: 1 },
+    // cach 1
+    // include: db.Group,
+
+    // cach 2
+    attributes: ['id', 'username', 'email'],
+    include: { model: db.Group, attributes: ['id', 'name', 'description'] },
+    raw: true,
+    nest: true
+  });
+
+  let roles = await db.Role.findAll({
+    include: { model: db.Group, where: { id: 1 } },
+    raw: true,
+    nest: true
+  });
+
+  console.log('check user', newUser);
+  console.log('check roles', roles);
+
   let users = [];
   users = await db.User.findAll();
   return users;
