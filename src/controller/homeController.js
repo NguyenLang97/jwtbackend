@@ -7,6 +7,7 @@ const handleHelloWorld = (req, res) => {
 const handleUserPage = async (req, res) => {
   // model => get data from database
   let userList = await userService.getUserList();
+  console.log(userList);
   return res.render('user.ejs', { userList });
 };
 
