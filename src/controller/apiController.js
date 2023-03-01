@@ -41,6 +41,7 @@ const handleRegister = async (req, res) => {
     });
   }
 };
+
 const handleLogin = async (req, res) => {
   try {
     let data = await loginRegisterService.handleUserLogin(req.body);
@@ -69,4 +70,23 @@ const handleLogin = async (req, res) => {
   }
 };
 
-module.exports = { testApi, handleRegister, handleLogin };
+const handleLogout = async (req, res) => {
+  try {
+    res.clearCookie('jwt');
+    return res.status(200).json({
+      EM: 'clearCookie done', // error message
+      EC: 0, // error code
+      DT: '' // data
+    });
+  } catch (error) {
+    console.log(error);
+    // server no se hien cac dong nay
+    return res.status(500).json({
+      EM: 'error from server', // error message
+      EC: '-1', // error code
+      DT: '' //data
+    });
+  }
+};
+
+module.exports = { testApi, handleRegister, handleLogin, handleLogout };
