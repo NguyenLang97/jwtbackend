@@ -7,6 +7,10 @@ const handleHelloWorld = (req, res) => {
 const handleUserPage = async (req, res) => {
   // model => get data from database
   let userList = await userService.getUserList();
+
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies);
+
   return res.render('user.ejs', { userList });
 };
 
