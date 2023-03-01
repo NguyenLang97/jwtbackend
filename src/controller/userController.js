@@ -2,7 +2,6 @@ import userApiService from '../service/userApiService';
 
 const readFunc = async (req, res) => {
   try {
-    
     if (req.query.page && req.query.limit) {
       let page = req.query.page;
       let limit = req.query.limit;
@@ -34,6 +33,7 @@ const readFunc = async (req, res) => {
     });
   }
 };
+
 const createFunc = async (req, res) => {
   try {
     // validate
@@ -54,6 +54,7 @@ const createFunc = async (req, res) => {
     });
   }
 };
+
 const updateFunc = async (req, res) => {
   try {
     // validate
@@ -73,6 +74,7 @@ const updateFunc = async (req, res) => {
     });
   }
 };
+
 const deleteFunc = async (req, res) => {
   try {
     let data = await userApiService.deleteUser(req.body.id);
@@ -92,9 +94,23 @@ const deleteFunc = async (req, res) => {
   }
 };
 
+const getUserAccount = async (req, res) => {
+  return res.status(200).json({
+    EM: 'OKOK', // error message
+    EC: 0, // error code
+    DT: {
+      access_token: req.token,
+      groupWithRoles: req.user.groupWithRoles,
+      email: req.user.email,
+      username: req.user.username
+    } //data
+  });
+};
+
 module.exports = {
   readFunc,
   createFunc,
   updateFunc,
-  deleteFunc
+  deleteFunc,
+  getUserAccount
 };
