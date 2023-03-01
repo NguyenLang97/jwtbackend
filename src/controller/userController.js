@@ -2,7 +2,6 @@ import userApiService from '../service/userApiService';
 
 const readFunc = async (req, res) => {
   try {
-    console.log('check query', req.query);
     if (req.query.page && req.query.limit) {
       let page = req.query.page;
       let limit = req.query.limit;
@@ -36,7 +35,14 @@ const readFunc = async (req, res) => {
 };
 const createFunc = async (req, res) => {
   try {
-    let users = await userApiService.getAllUser();
+    // validate
+    let data = await userApiService.createNewUser(req.body);
+    console.log('data', data);
+    return res.status(200).json({
+      EM: data.EM, // error message
+      EC: data.EC, // error code
+      DT: data.DT //data
+    });
   } catch (error) {
     console.log(error);
     // server no se hien cac dong nay

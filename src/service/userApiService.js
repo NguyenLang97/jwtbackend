@@ -62,8 +62,14 @@ const getUserWithPagination = async (page, limit) => {
   }
 };
 
-const createUser = async () => {
+const createNewUser = async (data) => {
   try {
+    await db.User.create(data);
+    return {
+      EM: 'Create OKOK',
+      EC: 0,
+      DT: []
+    };
   } catch (error) {
     console.log(error);
   }
@@ -110,7 +116,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   getAllUser,
-  createUser,
+  createNewUser,
   updateUser,
   deleteUser,
   getUserWithPagination
