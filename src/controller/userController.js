@@ -62,7 +62,12 @@ const updateFunc = async (req, res) => {
 };
 const deleteFunc = async (req, res) => {
   try {
-    let users = await userApiService.getAllUser();
+    let data = await userApiService.deleteUser(req.body.id);
+    return res.status(200).json({
+      EM: data.EM, // error message
+      EC: data.EC, // error code
+      DT: data.DT //data
+    });
   } catch (error) {
     console.log(error);
     // server no se hien cac dong nay
